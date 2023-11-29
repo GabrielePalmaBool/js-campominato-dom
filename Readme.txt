@@ -1,0 +1,1 @@
+Ricreazione esercizio Campominato (javascript+html+css) + logica posizionamento bombe,calcolo punteggio, dichiarazione vincitore.
