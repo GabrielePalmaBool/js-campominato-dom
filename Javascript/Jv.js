@@ -25,6 +25,9 @@ var num = 0;
 //creo e inizializzo una variabile globale a zero per tenere traccia del numero massimo di blocchi da inserire
 const MaxSquare = 100;
 
+let aggiunto = false;
+
+const bomb = [];
 
 // Quando viene cliccato il pulsante play
 CreateButton.addEventListener("click",
@@ -33,7 +36,7 @@ CreateButton.addEventListener("click",
     
         for(let i = 0 ; i < MaxSquare; i++){
 
-            //incremento lavariabile
+            //incremento la variabile per i numeri dei blocchi
             num++;
 
             //chiamo funzione per la creazione dei blocchi
@@ -44,8 +47,32 @@ CreateButton.addEventListener("click",
 
             function () {
 
-                    //aggiungo la classe desiderata
-                    mySquare.classList.add("onclick");
+                    //creo una variabile alla quale andrò ad associare il valore l'elemento cliccato
+                    const prova = mySquare.querySelector("h1").innerHTML;
+
+                    //lo trasformo in un intero
+                    var number = parseInt(prova);
+
+                    //eseguo un ciclo for su tutta la lunghezza del mio array bomb
+                    for(let i= 0; i< bomb.length;i++){
+
+                        //controllo il numero con tutti i valori e se è uguale a uno di questi
+                        if(number == bomb[i]){
+
+                             //aggiungo la classe desiderata
+                            mySquare.classList.add("bomb")
+                        }
+                        
+                        //altrimenti
+                        else {
+
+                            //aggiungo la classe desiderata
+                            mySquare.classList.add("onclick");
+                            
+                        }
+
+                    }
+
                 }
 
             );
@@ -61,24 +88,22 @@ CreateButton.addEventListener("click",
 //funzione per il popolamento automatico del mio container
 function crateSquare(val1,val2) {
 
-    const bomb = [];
+    //controllo se l'array  con i numeri delle bombe non è stato riempito
+    if(aggiunto == false){
 
-    if (MaxSquare == 100 && bomb == []){
+        //imposto la dimensione massima a 16 dell'array
+        for(let i=0; i<16; i++)
+        {
+            //richiamo funzione random e memorizzo nelle varie posizioni dell'array
+            bomb [i] = Math.floor(Math.random() * (MaxSquare - 1));
 
-        console.log (bomb);
-        let i = 0;
-
-        while (i < 16){
-
-            bomb[i] = GenRandom (num,MaxSquare);
-            
-            i++
         }
+
+        //segnalo che l'array è stato riempito
+        aggiunto = true;
 
     }
     
-    
-
     //Creo l'elemento all'interno del mio file html
     const square = document.createElement (val1);
 
@@ -94,18 +119,6 @@ function crateSquare(val1,val2) {
     //aggiungo la classe desiderata
     square.classList.add(val2);
 
-
-    for (let i = 0; i< bomb.length; i++){
-
-        if(num == bomb[i]){
-
-            //aggiungo la classe desiderata
-            square.classList.add("bomb");
-
-        }
-     
-    }
-
     //restituisco tale elemento
     return square;
 
@@ -120,6 +133,8 @@ DeleteButton.addEventListener("click",
 
         //acquisisco i valore nel tag p(qualora ci fosse)
         const number = document.querySelector('.containerCenter .Box');
+
+        aggiunto = false;
        
         num = 0;
         //Verifico che c'è
@@ -137,14 +152,3 @@ DeleteButton.addEventListener("click",
     }
 );
 
-
-
-
-function GenRandom (num,MaxSquare) {
-
-    //acquisico random il secondo numero;
-    const val2 = Math.floor(Math.random() * MaxSquare);
-
-    return val2;
-
-}
