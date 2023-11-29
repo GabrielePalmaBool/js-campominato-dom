@@ -134,6 +134,7 @@ DeleteButton.addEventListener("click",
         //acquisisco i valore nel tag p(qualora ci fosse)
         const number = document.querySelector('.containerCenter .Box');
 
+        //risetto la variabile a false in modo da poter riempire di nuovo l'array bomb
         aggiunto = false;
        
         num = 0;
