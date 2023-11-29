@@ -101,10 +101,10 @@ function crateSquare(val1,val2) {
 
         //segnalo che l'array è stato riempito
         aggiunto = true;
-
+        console.log(bomb);
     }
 
-    console.log(bomb);
+    
     
     //Creo l'elemento all'interno del mio file html
     const square = document.createElement (val1);
