@@ -53,24 +53,19 @@ CreateButton.addEventListener("click",
                     //lo trasformo in un intero
                     var number = parseInt(prova);
 
-                    //eseguo un ciclo for su tutta la lunghezza del mio array bomb
-                    for(let i= 0; i< bomb.length;i++){
+                    if(bomb.includes(number)){
 
-                        //controllo il numero con tutti i valori e se è uguale a uno di questi
-                        if(number == bomb[i]){
+                         //aggiungo la classe desiderata
+                         mySquare.classList.add("bomb");
 
-                             //aggiungo la classe desiderata
-                            mySquare.classList.add("bomb")
-                        }
+                    }
+
+                    //altrimenti
+                    else {
+
+                        //aggiungo la classe desiderata
+                        mySquare.classList.add("onclick");
                         
-                        //altrimenti
-                        else {
-
-                            //aggiungo la classe desiderata
-                            mySquare.classList.add("onclick");
-                            
-                        }
-
                     }
 
                 }
@@ -95,17 +90,26 @@ function crateSquare(val1,val2) {
         for(let i=0; i<16; i++)
         {
             //richiamo funzione random e memorizzo nelle varie posizioni dell'array
-            bomb [i] = Math.floor(Math.random() * (MaxSquare - 1));
+            let val1 = Math.floor(Math.random() * MaxSquare) + 1;
 
+            //controllo che tale valore non sia presente nel mio array bomb
+            if(!bomb.includes(val1)){
+
+                //in caso affermativo inserisco il valore
+                bomb [i] = val1;
+            }
+
+            console.log(bomb);
+            
         }
 
         //segnalo che l'array è stato riempito
         aggiunto = true;
-        console.log(bomb);
     }
 
     
     
+
     //Creo l'elemento all'interno del mio file html
     const square = document.createElement (val1);
 
