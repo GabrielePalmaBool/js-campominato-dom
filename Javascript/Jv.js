@@ -10,13 +10,13 @@ Quando l’utente clicca su ogni cella, la cella cliccata si colora di azzurro e
 
 //Svolgimento
 
-// acquisisco l'elemento che ha per classe box
+// dichiaro l'elemento che ha per classe box
 const Container = document.querySelector(".containerCenter");
 
-// acquisisco l'elemento (bottone) che ha per id play,
+// dichiaro l'elemento (bottone) che ha per id play,
 const CreateButton = document.getElementById("play");
 
-// acquisisco l'elemento (bottone) che ha per id play,
+// dichiaro l'elemento (bottone) che ha per id play,
 const DeleteButton = document.getElementById("del");
 
 //creo e inizializzo una variabile globale a zero per i numeri all'interno dei blocchi
@@ -25,8 +25,10 @@ var num = 0;
 //creo e inizializzo una variabile globale a zero per tenere traccia del numero massimo di blocchi da inserire
 const MaxSquare = 100;
 
+// dichiaro variabile booleana per tener traccia se l'array con i numeri delle bombe è stato popolato o meno
 let aggiunto = false;
 
+// dichiaro variabile array vuoto per i numeri delle bombe
 const bomb = [];
 
 // Quando viene cliccato il pulsante play
@@ -58,6 +60,27 @@ CreateButton.addEventListener("click",
                          //aggiungo la classe desiderata
                          mySquare.classList.add("bomb");
 
+                        // acquisico il numero totale di elemnti in pagina
+                        const items = document.getElementsByClassName ('Box');
+                        
+                        for(let i= 0; i<=items.length; i++){
+                          
+                                //controllo quelli presenti nel mio array bomb e se presenti
+                                if(bomb.includes(i)){
+                                    
+                                    let pos = i;
+                                    
+                                    items[pos-1].classList.add("bomb");
+
+                                    items[i].classList.add("onclick");
+                                }
+
+                                else{
+                                    items[i].classList.add("onclick"); 
+                                }
+
+                        }
+                     
                     }
 
                     //altrimenti
@@ -80,35 +103,42 @@ CreateButton.addEventListener("click",
     }
 );
 
+
+
 //funzione per il popolamento automatico del mio container
 function crateSquare(val1,val2) {
 
     //controllo se l'array  con i numeri delle bombe non è stato riempito
     if(aggiunto == false){
 
-        //imposto la dimensione massima a 16 dell'array
-        for(let i=0; i<16; i++)
-        {
-            //richiamo funzione random e memorizzo nelle varie posizioni dell'array
-            let val1 = Math.floor(Math.random() * MaxSquare) + 1;
+        //imposto la variabile posizione
+        let pos = 0;
 
-            //controllo che tale valore non sia presente nel mio array bomb
-            if(!bomb.includes(val1)){
+        //faccio partire il controllo
+        while(bomb.length < 16){
 
-                //in caso affermativo inserisco il valore
-                bomb [i] = val1;
-            }
+             //richiamo funzione random e memorizzo nelle varie posizioni dell'array
+             let val1 = Math.floor(Math.random() * MaxSquare);
 
-            console.log(bomb);
-            
+             //controllo che tale valore non sia presente nel mio array bomb
+             if(!bomb.includes(val1)){
+                 console.log("ok");
+
+                 //in caso affermativo inserisco il valore
+                 bomb [pos] = val1;
+
+                 pos++;
+
+             }
+
         }
-
+        console.log(bomb);
         //segnalo che l'array è stato riempito
         aggiunto = true;
     }
 
     
-    
+   
 
     //Creo l'elemento all'interno del mio file html
     const square = document.createElement (val1);
@@ -142,6 +172,9 @@ DeleteButton.addEventListener("click",
 
         //risetto la variabile a false in modo da poter riempire di nuovo l'array bomb
         aggiunto = false;
+
+        //setto l'array bomb a zero
+        bomb.length = 0;
        
         num = 0;
         //Verifico che c'è
