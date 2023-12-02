@@ -48,15 +48,40 @@
 /* MAIN */
 .background {
     background-color:lightseagreen;
+    display: none;
 }
 
-.containerCenter {
+
+.containerMax {
     margin: 0 auto;
-    width: 1000px;
+    width: 1200px;
+    display: flex;
+    padding: 40px 0px 40px 0px;  
+
+}
+
+.containerGrid {
     display: flex;
     flex-wrap: wrap;
-
+    flex-grow: 1;
 }
+
+
+.containerScore {
+    display: flex;
+    flex-direction : column;
+    flex-wrap: wrap;
+    flex-basis: 50%;
+}
+
+.ScoreUser {
+    margin-top: 500px;
+    font-weight: bold;
+    font-size: 25px;
+    color: white;
+    display: inline-block;
+}
+
 /* box1 */
 .Box{
     width: calc(100% / 10);
@@ -77,5 +102,6 @@
 
 .bomb {
     background-color: yellow;
-   
+    pointer-events: none;
 }
+

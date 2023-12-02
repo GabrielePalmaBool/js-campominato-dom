@@ -10,8 +10,14 @@ Quando l’utente clicca su ogni cella, la cella cliccata si colora di azzurro e
 
 //Svolgimento
 
-// dichiaro l'elemento che ha per classe box
-const Container = document.querySelector(".containerCenter");
+// dichiaro l'elemento che ha per classe background
+const ContainerBack = document.querySelector(".background");
+
+// dichiaro l'elemento che ha per classe containerGrid
+const Container = document.querySelector(".containerGrid");
+
+// dichiaro l'elemento che ha per classe containerScore
+const ContainerS = document.querySelector(".containerScore");
 
 // dichiaro l'elemento (bottone) che ha per id play,
 const CreateButton = document.getElementById("play");
@@ -31,6 +37,10 @@ let aggiunto = false;
 // dichiaro variabile array vuoto per i numeri delle bombe
 const bomb = [];
 
+//creo una variabile per tener traccia del punteggio del giocatore
+let punto = 0;
+
+
 // Quando viene cliccato il pulsante play
 CreateButton.addEventListener("click",
 
@@ -41,8 +51,11 @@ CreateButton.addEventListener("click",
             //incremento la variabile per i numeri dei blocchi
             num++;
 
+            //rendo visibile tutto il contenuto in pagia
+            ContainerBack.style="display:block"; 
+
             //chiamo funzione per la creazione dei blocchi
-            const mySquare = crateSquare("div","Box");
+            const mySquare = crateGrid("div","Box");
 
             //aggiungo un evento ai miei blocchi
             mySquare.addEventListener ("click", 
@@ -55,6 +68,7 @@ CreateButton.addEventListener("click",
                     //lo trasformo in un intero
                     var number = parseInt(prova);
 
+                    
                     if(bomb.includes(number)){
 
                          //aggiungo la classe desiderata
@@ -63,23 +77,45 @@ CreateButton.addEventListener("click",
                         // acquisico il numero totale di elemnti in pagina
                         const items = document.getElementsByClassName ('Box');
                         
-                        for(let i= 0; i<=items.length; i++){
-                          
+                        for(let i= 0; i<items.length; i++){
+
+                           
                                 //controllo quelli presenti nel mio array bomb e se presenti
                                 if(bomb.includes(i)){
-                                    
-                                    let pos = i;
-                                    
-                                    items[pos-1].classList.add("bomb");
 
-                                    items[i].classList.add("onclick");
+                                    console.log(items[i]);
+
+                                    items[i-1].classList.add("bomb");
+
+                                    items[i].classList.add("onclick"); 
+
+                                    //disabilito i tag a di tutti i blocchi in griglia
+                                    items[i-1].style = "pointer-events: none";
+
+                                    //disabilito i tag a di tutti i blocchi in griglia
+                                    items[i].style = "pointer-events: none";
+
+                                    //disabilito il tag a del mio pulsante play
+                                    CreateButton.style = "pointer-events: none";
+
                                 }
 
                                 else{
+                                   
                                     items[i].classList.add("onclick"); 
+
+                                    //disabilito i tag a di tutti i blocchi in griglia
+                                    items[i].style = "pointer-events: none";
+
+                                    //disabilito il tag a del mio pulsante play
+                                    CreateButton.style = "pointer-events: none";
+
                                 }
+                                
 
                         }
+
+                       
                      
                     }
 
@@ -88,9 +124,65 @@ CreateButton.addEventListener("click",
 
                         //aggiungo la classe desiderata
                         mySquare.classList.add("onclick");
+
+                        punto++;
                         
                     }
 
+                   
+                        //acquisisco i valori di ogni tag Box
+                        const Point = document.querySelector('.containerScore .ScoreUser');
+                        
+                        //acquisisco i valori di ogni tag Box
+                        const ClickB = document.querySelector('.containerGrid .bomb');
+
+                        //Verifico che ci siano tag Box in pagina
+                        if(Point != null){
+
+                            //fino a quando nel container ci saranno box
+                            while (ContainerS.firstChild) {
+                                
+                                //elimina ogni figlio Score
+                                ContainerS.removeChild(ContainerS.firstChild);
+                            
+                            }
+                        
+                        }
+
+                        //Creo l'elemento all'interno del mio file html
+                        const PuntTot = document.createElement ("div");
+
+                        PuntTot.classList.add("ScoreUser");
+
+                        //inserisco scritta all'interno del mio contenuto
+                        PuntTot.append("Punteggio Player:"+punto);
+
+                        ContainerS.append(PuntTot);
+
+                        if(ClickB != null){
+                            
+                            //fino a quando nel container ci saranno box
+                            while (ContainerS.firstChild) {
+                                    
+                                 //elimina ogni figlio Score
+                                ContainerS.removeChild(ContainerS.firstChild);
+                                
+                            }
+                            
+                            
+
+                            //Creo l'elemento all'interno del mio file html
+                            const GameOver = document.createElement ("div");
+
+                            GameOver.classList.add("ScoreUser");
+
+                            //inserisco scritta all'interno del mio contenuto
+                            GameOver.append(" GAME OVER: clicca su ricomincia per ripetere la partita \n Punteggio Player:"+punto);
+
+                            ContainerS.append(GameOver);
+
+                        }
+                    
                 }
 
             );
@@ -106,7 +198,7 @@ CreateButton.addEventListener("click",
 
 
 //funzione per il popolamento automatico del mio container
-function crateSquare(val1,val2) {
+function crateGrid(val1,val2) {
 
     //controllo se l'array  con i numeri delle bombe non è stato riempito
     if(aggiunto == false){
@@ -118,12 +210,11 @@ function crateSquare(val1,val2) {
         while(bomb.length < 16){
 
              //richiamo funzione random e memorizzo nelle varie posizioni dell'array
-             let val1 = Math.floor(Math.random() * MaxSquare);
+             let val1 = Math.floor(Math.random() * (MaxSquare +1));
 
              //controllo che tale valore non sia presente nel mio array bomb
              if(!bomb.includes(val1)){
-                 console.log("ok");
-
+                
                  //in caso affermativo inserisco il valore
                  bomb [pos] = val1;
 
@@ -136,9 +227,6 @@ function crateSquare(val1,val2) {
         //segnalo che l'array è stato riempito
         aggiunto = true;
     }
-
-    
-   
 
     //Creo l'elemento all'interno del mio file html
     const square = document.createElement (val1);
@@ -166,18 +254,26 @@ function crateSquare(val1,val2) {
 DeleteButton.addEventListener("click",
 
     function () {
+        
+        //riattivo il tag a del mio pulsante play
+        CreateButton.style = "pointer-events: auto";
 
-        //acquisisco i valore nel tag p(qualora ci fosse)
-        const number = document.querySelector('.containerCenter .Box');
+        //rendo invisibile tutto il contenuto in pagina
+        ContainerBack.style="display:none"; 
+
+        //acquisisco i valori di ogni tag Box
+        const number = document.querySelector('.containerGrid .Box');
 
         //risetto la variabile a false in modo da poter riempire di nuovo l'array bomb
         aggiunto = false;
 
-        //setto l'array bomb a zero
+        //setto la lunghezza dell'array bomb a zero
         bomb.length = 0;
        
+        //setto a zero la variabile usata per numerare i blocchi sulla griglia
         num = 0;
-        //Verifico che c'è
+        
+        //Verifico che ci siano tag Box in pagina
         if(number != null){
 
             //fino a quando nel container ci saranno box
