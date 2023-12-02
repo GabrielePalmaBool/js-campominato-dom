@@ -125,6 +125,9 @@ CreateButton.addEventListener("click",
                         //aggiungo la classe desiderata
                         mySquare.classList.add("onclick");
 
+                        //disabilito i tag a di tutti i blocchi in griglia
+                        mySquare.style = "pointer-events: none";
+
                         punto++;
                         
                     }
@@ -262,7 +265,11 @@ DeleteButton.addEventListener("click",
         ContainerBack.style="display:none"; 
 
         //acquisisco i valori di ogni tag Box
-        const number = document.querySelector('.containerGrid .Box');
+        const numberBox = document.querySelector('.containerGrid .Box');
+
+        //acquisisco i valori di ogni tag Box
+        const numberSc = document.querySelector('.containerScore .ScoreUser');
+
 
         //risetto la variabile a false in modo da poter riempire di nuovo l'array bomb
         aggiunto = false;
@@ -272,15 +279,29 @@ DeleteButton.addEventListener("click",
        
         //setto a zero la variabile usata per numerare i blocchi sulla griglia
         num = 0;
+
+        punto = 0;
         
         //Verifico che ci siano tag Box in pagina
-        if(number != null){
+        if(numberBox != null){
 
             //fino a quando nel container ci saranno box
             while (Container.firstChild) {
                 
                 //elimina ogni figlio box
                 Container.removeChild(Container.firstChild);
+            }
+         
+        }
+
+         //Verifico che ci siano tag ScoreUser in pagina
+         if(numberSc != null){
+
+            //fino a quando nel container ci saranno box
+            while (ContainerS.firstChild) {
+                
+                //elimina ogni figlio ScoreUser
+                ContainerS.removeChild(ContainerS.firstChild);
             }
          
         }
