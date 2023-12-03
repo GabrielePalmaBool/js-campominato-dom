@@ -1,0 +1,106 @@
+/*  Stili generali di pagina */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* HEADER */
+.header {
+    background-color:white;
+    min-height: 100px;
+    position: relative;
+}
+
+.header img {
+    width:5%;
+    vertical-align: middle;
+}
+
+.header h1 {
+    font-size: 30px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.header .right {
+    position: absolute;
+    right: 5%;
+    top: 30%;
+}
+
+.header .right a{
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 5px 15px 5px 15px;
+    border-radius: 15px;
+    background-color: lightgray;
+    border: 2px solid grey;
+}
+
+.header .right a:hover{
+    color: white;
+}
+
+/* MAIN */
+.background {
+    background-color:lightseagreen;
+    display: none;
+}
+
+
+.containerMax {
+    margin: 0 auto;
+    width: 1200px;
+    display: flex;
+    padding: 40px 0px 40px 0px;  
+
+}
+
+.containerGrid {
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+}
+
+
+.containerScore {
+    display: flex;
+    flex-direction : column;
+    flex-wrap: wrap;
+    flex-basis: 50%;
+}
+
+.ScoreUser {
+    margin-top: 500px;
+    font-weight: bold;
+    font-size: 25px;
+    color: white;
+    display: inline-block;
+}
+
+/* box1 */
+.Box{
+    width: calc(100% / 10);
+    height: 100px;
+    border: 2px solid black;
+}
+
+.Box h1 {
+    margin-top: 40px;
+    text-align: center;
+    color: white;
+    font-size: 30px;
+}
+
+.onclick {
+    background-color: blue;
+}
+
+.bomb {
+    background-color: yellow;
+    pointer-events: none;
+}
