@@ -27,11 +27,14 @@ const CreateButton = document.getElementById("play");
 // dichiaro l'elemento (bottone) che ha per id play,
 const DeleteButton = document.getElementById("del");
 
+// dichiaro l'elemento (bottone) che ha per id play,
+const Choice = document.getElementById("choice");
+
 //creo e inizializzo una variabile globale a zero per i numeri all'interno dei blocchi
 var num = 0;
 
 //creo e inizializzo una variabile globale a zero per tenere traccia del numero massimo di blocchi da inserire
-const MaxSquare = 100;
+var MaxSquare = 0;
 
 // dichiaro variabile booleana per tener traccia se l'array con i numeri delle bombe è stato popolato o meno
 let aggiunto = false;
@@ -47,7 +50,23 @@ let punto = 0;
 CreateButton.addEventListener("click",
 
     function () {
-    
+
+        if ( Choice.value == 1){
+            MaxSquare = 100;
+        }
+
+        else if (Choice.value == 2) {
+            MaxSquare = 75;
+        }
+
+        else if (Choice.value == 3) {
+            MaxSquare = 50;
+        }
+
+        else {
+            MaxSquare = 10;
+        }
+
         for(let i = 0 ; i < MaxSquare; i++){
 
             //incremento la variabile per i numeri dei blocchi
@@ -175,7 +194,6 @@ CreateButton.addEventListener("click",
                             }
                             
                             
-
                             //Creo l'elemento all'interno del mio file html
                             const GameOver = document.createElement ("div");
 
@@ -211,23 +229,52 @@ function crateGrid(val1,val2) {
         //imposto la variabile posizione
         let pos = 0;
 
-        //faccio partire il controllo
-        while(bomb.length < 16){
+        //se è stato selezionato l'ultimo livello di difficoltà
+        if(Choice.value == 4){
 
-             //richiamo funzione random e memorizzo nelle varie posizioni dell'array
-             let val1 = Math.floor(Math.random() * (MaxSquare +1));
+            //faccio partire il ciclo while però diminuisco la grandezza dell'array
+            while(bomb.length < 5){
 
-             //controllo che tale valore non sia presente nel mio array bomb
-             if(!bomb.includes(val1)){
+                //memorizzo numeri da 1 a 10 nell'array
+                let val1 = Math.floor(Math.random() * (10 +1));
+
+                //controllo che tale valore non sia presente nel mio array bomb
+                if(!bomb.includes(val1)){
                 
-                 //in caso affermativo inserisco il valore
-                 bomb [pos] = val1;
+                    //in caso affermativo inserisco il valore
+                    bomb [pos] = val1;
 
-                 pos++;
+                    pos++;
 
-             }
+                }
 
+            }
+
+        }   
+
+        //altrimenti
+        else {
+
+            //faccio partire il controllo
+            while(bomb.length < 16){
+
+                //richiamo funzione random e memorizzo nelle varie posizioni dell'array
+                let val1 = Math.floor(Math.random() * (100 +1));
+
+                //controllo che tale valore non sia presente nel mio array bomb
+                if(!bomb.includes(val1)){
+                
+                    //in caso affermativo inserisco il valore
+                    bomb [pos] = val1;
+
+                    pos++;
+
+                }
+
+            }
         }
+
+
         console.log(bomb);
         //segnalo che l'array è stato riempito
         aggiunto = true;
