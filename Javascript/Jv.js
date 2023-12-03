@@ -83,8 +83,6 @@ CreateButton.addEventListener("click",
                                 //controllo quelli presenti nel mio array bomb e se presenti
                                 if(bomb.includes(i)){
 
-                                    console.log(items[i]);
-
                                     items[i-1].classList.add("bomb");
 
                                     items[i].classList.add("onclick"); 
