@@ -214,6 +214,10 @@ CreateButton.addEventListener("click",
             Container.append(mySquare);
 
         }
+
+        //disabilito il tag a del mio pulsante play
+        CreateButton.style = "pointer-events: none";
+
         
     }
 );
@@ -236,7 +240,7 @@ function crateGrid(val1,val2) {
             while(bomb.length < 5){
 
                 //memorizzo numeri da 1 a 10 nell'array
-                let val1 = Math.floor(Math.random() * (10 +1));
+                let val1 = Math.floor(Math.random() * (10) + 1 );
 
                 //controllo che tale valore non sia presente nel mio array bomb
                 if(!bomb.includes(val1)){
@@ -259,7 +263,7 @@ function crateGrid(val1,val2) {
             while(bomb.length < 16){
 
                 //richiamo funzione random e memorizzo nelle varie posizioni dell'array
-                let val1 = Math.floor(Math.random() * (100 +1));
+                let val1 = Math.floor(Math.random() * (99) + 1);
 
                 //controllo che tale valore non sia presente nel mio array bomb
                 if(!bomb.includes(val1)){
